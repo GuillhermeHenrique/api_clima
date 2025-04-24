@@ -1,5 +1,11 @@
+import UserWeather from "../components/UserWeather";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <UserWeather />
+    </>
+  );
 };
 
 export default Home;
