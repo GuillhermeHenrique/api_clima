@@ -1,0 +1,132 @@
+.weather {
+  display: flex;
+  margin: auto;
+  width: 700px;
+  height: 500px;
+  background-color: #ffffff42;
+  box-shadow: 0 0 40px #0c0c0c;
+}
+
+.weather-places {
+  background-color: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  padding: auto;
+  flex: 2;
+}
+
+.weather-temperature {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  flex: 1 1;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 100;
+  gap: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.degrees {
+  font-size: 25px;
+  font-weight: 100;
+}
+
+.icon-description {
+  text-align: end;
+  border-bottom: 1px solid #6e6e6e;
+  padding-top: 5px;
+}
+
+.description {
+  font-size: 15px;
+  font-weight: 100;
+}
+
+.weather-input {
+  width: 300px;
+  background-image: url("../assets/montanha.jpg");
+  background-position: 63cap;
+  background-size: cover;
+  flex: 2;
+  padding-top: 30px;
+}
+
+.input-container {
+  text-align: center;
+  width: min-content;
+  margin: auto;
+}
+
+.input {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.input input {
+  border: none;
+  background-color: #000000cf;
+  border-radius: 5px;
+  padding: 10px 80px;
+  padding-left: 10px;
+  color: #e3e3e3;
+}
+
+.input button {
+  font-size: 15px;
+  background-color: #000;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.8s;
+}
+
+.input button:hover {
+  opacity: 0.9;
+}
+
+.user-weather {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.user-city {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.icon-pin {
+  color: #000;
+}
+
+.user-weather h1 {
+  font-size: 100px;
+}
+
+.user-degrees {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+}
+
+.icon-user {
+  font-size: 30px;
+}
+
+.icon {
+  font-size: 25px;
+}
+
+.sun {
+  color: #ffee00;
+}
