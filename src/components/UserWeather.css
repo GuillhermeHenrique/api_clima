@@ -64,6 +64,7 @@
   background-size: cover;
   flex: 2;
   padding-top: 30px;
+  text-align: center;
 }
 
 .input-container {

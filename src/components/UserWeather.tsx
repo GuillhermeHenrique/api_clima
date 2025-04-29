@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { getWeather } from "../api/requests";
 
 import "./UserWeather.css";
@@ -8,6 +9,8 @@ import { FiSearch } from "react-icons/fi";
 
 import { WeatherData } from "../types/WeatherData";
 
+import Loader from "./Loader";
+
 const placesWeather = ["Paris", "Moscou", "Londres", "Dubai"];
 
 const UserWeather = () => {
@@ -15,23 +18,35 @@ const UserWeather = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [weatherCity, setWeatherCity] = useState<WeatherData[]>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingInitial, setIsLoadingInitial] = useState(false);
+
   const handleWeather = async (
     city: string,
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const data = await getWeather(city);
 
     setWeather(data);
+
+    setIsLoading(false);
   };
 
   const handleWeatherCity = async () => {
+    setIsLoadingInitial(true);
+
     try {
       const data = await Promise.all(
         placesWeather.map((place) => getWeather(place))
       );
+
       setWeatherCity(data); // Garante que só dados válidos vão para o estado
+
+      setIsLoadingInitial(false);
     } catch (error) {
       console.error(error);
     }
@@ -44,6 +59,7 @@ const UserWeather = () => {
   return (
     <div className="weather">
       <div className="weather-places">
+        {isLoadingInitial && <Loader />}
         {weatherCity.map(
           (weather) =>
             weather && (
@@ -101,6 +117,7 @@ const UserWeather = () => {
             </div>
           </div>
         )}
+        {isLoading && <Loader />}
       </div>
     </div>
   );
