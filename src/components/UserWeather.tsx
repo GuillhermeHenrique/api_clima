@@ -1,110 +1,70 @@
-import { ReactElement, useEffect, useState } from "react";
-import { getDegrees, getDescription } from "../api/requests";
+import { useEffect, useState } from "react";
+import { getWeather } from "../api/requests";
 
 import "./UserWeather.css";
-import { FiCloudRain, FiSearch, FiSun } from "react-icons/fi";
-import { HiMapPin } from "react-icons/hi2";
-import { BiCloud } from "react-icons/bi";
-import { BsCloudSnow } from "react-icons/bs";
 
-const placesWeather = ["Paris", "Moscou", "Londres", "Dubai", "Indaiatuba"];
+import { HiMapPin } from "react-icons/hi2";
+import { FiSearch } from "react-icons/fi";
+
+import { WeatherData } from "../types/WeatherData";
+
+const placesWeather = ["Paris", "Moscou", "Londres", "Dubai"];
 
 const UserWeather = () => {
-  const [degrees, setDegrees] = useState<number[] | null>(null);
-  const [descriptions, setDescriptions] = useState<string[] | null>(null);
   const [userCity, setUserCity] = useState<string>("");
-  const [degreesUserCity, setDegreesUserCity] = useState<number>();
-  const [descriptionUserCity, setDescriptionUserCity] = useState<string>("");
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [weatherCity, setWeatherCity] = useState<WeatherData[]>([]);
 
-  useEffect(() => {
-    const handleDegrees = async () => {
-      const data = await Promise.all(
-        placesWeather.map((place) => getDegrees(place))
-      );
-
-      setDegrees(data);
-    };
-
-    const handleDescriptions = async () => {
-      const data = await Promise.all(
-        placesWeather.map((place) => getDescription(place))
-      );
-
-      setDescriptions(data);
-    };
-
-    handleDegrees();
-    handleDescriptions();
-  }, []);
-
-  const handleWeatherUserCity = async (e: React.FormEvent) => {
+  const handleWeather = async (
+    city: string,
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
-    const degree = await getDegrees(userCity);
+    const data = await getWeather(city);
 
-    const description = await getDescription(userCity);
-
-    setDegreesUserCity(degree);
-
-    setDescriptionUserCity(description);
+    setWeather(data);
   };
 
-  const getIconWeather = (description: string): ReactElement | null => {
-    switch (description) {
-      case "céu limpo":
-        return <FiSun className="icon sun" />;
+  const handleWeatherCity = async () => {
+    const data = await Promise.all(
+      placesWeather.map((place) => getWeather(place))
+    );
 
-      case "algumas nuvens":
-        return <FiSun className="icon sun" />;
-
-      case "nuvens dispersas":
-        return <FiSun className="icon sun" />;
-
-      case "nuvens quebradas":
-        return <FiSun className="icon sun" />;
-
-      case "neve":
-        return <BsCloudSnow className="icon" />;
-
-      case "névoa":
-        return <BiCloud className="icon" />;
-
-      case "nublado":
-        return <BiCloud className="icon" />;
-
-      case "pouca neve":
-        return <BsCloudSnow className="icon" />;
-
-      case "neve pesada":
-        return <BsCloudSnow className="icon" />;
-
-      default:
-        return <FiCloudRain className="icon" />;
-    }
+    setWeatherCity(data);
   };
+
+  useEffect(() => {
+    handleWeatherCity();
+  }, []);
 
   return (
     <div className="weather">
       <div className="weather-places">
-        {degrees?.map((degree, index) => (
-          <div key={index} className="weather-temperature">
+        {weatherCity.map((weather) => (
+          <div key={weather.id} className="weather-temperature">
             <div className="name-degrees">
               <div className="name">
                 <HiMapPin className="pin" />
-                <p>{placesWeather[index]}</p>
+                <p>{weather.name}</p>
               </div>
-              <p className="degrees">{degree}°C</p>
+              <p className="degrees">
+                {Number(weather.main.temp).toFixed(0)}°C
+              </p>
             </div>
             <div className="icon-description">
-              {descriptions && getIconWeather(descriptions[index])}
-              <p className="description">{descriptions?.[index]}</p>
+              <img
+                src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                alt="condition"
+              />
+              <p className="description">{weather.weather[0].description}</p>
             </div>
           </div>
         ))}
       </div>
       <div className="weather-input">
         <div className="input-container">
-          <form onSubmit={handleWeatherUserCity}>
+          <form onSubmit={(e) => handleWeather(userCity, e)}>
             <div className="input">
               <input
                 type="text"
@@ -112,21 +72,24 @@ const UserWeather = () => {
                 onChange={(e) => setUserCity(e.target.value)}
               />
               <button type="submit">
-                <FiSearch className="search" />
+                <FiSearch />
               </button>
             </div>
           </form>
         </div>
-        {degreesUserCity && (
+        {weather && (
           <div className="user-weather">
             <div className="user-city">
               <HiMapPin className="icon-pin" />
-              <p>{userCity}</p>
+              <p>{weather.name}</p>
             </div>
-            <h1>{degreesUserCity}°C</h1>
+            <h1>{Number(weather.main.temp).toFixed(0)}°C</h1>
             <div className="user-degrees">
-              {descriptionUserCity && getIconWeather(descriptionUserCity)}
-              <p>{descriptionUserCity}</p>
+              <img
+                src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                alt="condition"
+              />
+              <p>{weather.weather[0].description}</p>
             </div>
           </div>
         )}

@@ -11,7 +11,7 @@
   background-color: #0d0d0d;
   display: flex;
   flex-direction: column;
-  padding: auto;
+  padding: 5px;
   flex: 2;
 }
 
@@ -19,7 +19,14 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  padding-top: 10px;
   flex: 1 1;
+  align-items: center;
+}
+
+.name-degrees {
+  height: 100%;
+  align-content: center;
 }
 
 .name {
@@ -27,7 +34,7 @@
   font-weight: 100;
   gap: 2px;
   display: flex;
-  align-items: center;
+  padding-bottom: 10px;
 }
 
 .degrees {
@@ -38,12 +45,16 @@
 .icon-description {
   text-align: end;
   border-bottom: 1px solid #6e6e6e;
-  padding-top: 5px;
+}
+
+.icon-description img {
+  height: 50px;
 }
 
 .description {
   font-size: 15px;
   font-weight: 100;
+  padding-bottom: 10px;
 }
 
 .weather-input {
@@ -115,18 +126,9 @@
 .user-degrees {
   display: flex;
   justify-content: center;
-  gap: 5px;
   align-items: center;
 }
 
-.icon-user {
-  font-size: 30px;
-}
-
-.icon {
-  font-size: 25px;
-}
-
-.sun {
-  color: #ffee00;
+.user-degrees img {
+  height: 50px;
 }
