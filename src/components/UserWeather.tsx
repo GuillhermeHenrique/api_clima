@@ -27,11 +27,14 @@ const UserWeather = () => {
   };
 
   const handleWeatherCity = async () => {
-    const data = await Promise.all(
-      placesWeather.map((place) => getWeather(place))
-    );
-
-    setWeatherCity(data);
+    try {
+      const data = await Promise.all(
+        placesWeather.map((place) => getWeather(place))
+      );
+      setWeatherCity(data); // Garante que só dados válidos vão para o estado
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -41,26 +44,31 @@ const UserWeather = () => {
   return (
     <div className="weather">
       <div className="weather-places">
-        {weatherCity.map((weather) => (
-          <div key={weather.id} className="weather-temperature">
-            <div className="name-degrees">
-              <div className="name">
-                <HiMapPin className="pin" />
-                <p>{weather.name}</p>
+        {weatherCity.map(
+          (weather) =>
+            weather && (
+              <div key={weather.id} className="weather-temperature">
+                <div className="name-degrees">
+                  <div className="name">
+                    <HiMapPin className="pin" />
+                    <p>{weather.name}</p>
+                  </div>
+                  <p className="degrees">
+                    {Number(weather.main.temp).toFixed(0)}°C
+                  </p>
+                </div>
+                <div className="icon-description">
+                  <img
+                    src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                    alt="condition"
+                  />
+                  <p className="description">
+                    {weather.weather[0].description}
+                  </p>
+                </div>
               </div>
-              <p className="degrees">
-                {Number(weather.main.temp).toFixed(0)}°C
-              </p>
-            </div>
-            <div className="icon-description">
-              <img
-                src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                alt="condition"
-              />
-              <p className="description">{weather.weather[0].description}</p>
-            </div>
-          </div>
-        ))}
+            )
+        )}
       </div>
       <div className="weather-input">
         <div className="input-container">
