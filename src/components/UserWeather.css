@@ -60,11 +60,12 @@
 .weather-input {
   width: 300px;
   background-image: url("../assets/montanha.jpg");
-  background-position: 63cap;
+  background-position: left;
   background-size: cover;
   flex: 2;
-  padding-top: 30px;
+  padding-top: 28px;
   text-align: center;
+  color: #000;
 }
 
 .input-container {
@@ -86,6 +87,11 @@
   padding: 10px 80px;
   padding-left: 10px;
   color: #e3e3e3;
+  transition: 0.8s;
+}
+
+.input input:hover {
+  background-color: #000;
 }
 
 .input button {
@@ -106,7 +112,15 @@
 
 .user-weather {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 15px;
+}
+
+.user-weather h1 {
+  font-size: 90px;
+}
+
+.user-weather p {
+  font-weight: 600;
 }
 
 .user-city {
@@ -120,16 +134,45 @@
   color: #000;
 }
 
-.user-weather h1 {
-  font-size: 90px;
+
+.user-degrees h1 {
+  width: min-content;
+  margin: 0 auto;
 }
 
-.user-degrees {
+.user-description {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.user-degrees img {
+.user-description img {
   height: 50px;
+}
+
+.humidity-container {
+  width: 60%;
+  background-color: #00000098;
+  margin: 10px auto;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  color: #fff;
+  padding: 20px 30px;
+  cursor: pointer;
+  transition: 0.8s;
+}
+
+.humidity-container:hover {
+  background-color: #000;
+}
+
+.icon-humidity {
+  font-size: 20px;
+}
+
+.error {
+  margin-top: 20px;
+  padding: 0 40px;
 }

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { getWeather } from "../api/requests";
 
 import "./UserWeather.css";
+import { IoWater } from "react-icons/io5";
+import { FaWind } from "react-icons/fa";
 
 import { HiMapPin } from "react-icons/hi2";
 import { FiSearch } from "react-icons/fi";
@@ -11,7 +13,28 @@ import { WeatherData } from "../types/WeatherData";
 
 import Loader from "./Loader";
 
-const placesWeather = ["Paris", "Moscou", "Londres", "Dubai"];
+const placesWeather = [
+  "New York",
+  "London",
+  "Paris",
+  "Tokyo",
+  "Dubai",
+  "Rome",
+  "Barcelona",
+  "Los Angeles",
+  "Bangkok",
+  "Istanbul",
+  "Hong Kong",
+  "Singapore",
+  "Sydney",
+  "Shanghai",
+  "Las Vegas",
+  "Rio de Janeiro",
+  "São Paulo",
+  "Berlin",
+  "Amsterdam",
+  "Moscow",
+];
 
 const UserWeather = () => {
   const [userCity, setUserCity] = useState<string>("");
@@ -20,6 +43,7 @@ const UserWeather = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingInitial, setIsLoadingInitial] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleWeather = async (
     city: string,
@@ -31,9 +55,20 @@ const UserWeather = () => {
 
     const data = await getWeather(city);
 
-    setWeather(data);
+    if (!data) {
+      setWeather(null);
+      setError(true);
+      setIsLoading(false);
+      return;
+    }
 
+    setWeather(data);
+    setError(false);
     setIsLoading(false);
+
+    const input = document.querySelector("#text") as HTMLInputElement;
+
+    input.value = "";
   };
 
   const handleWeatherCity = async () => {
@@ -44,12 +79,18 @@ const UserWeather = () => {
         placesWeather.map((place) => getWeather(place))
       );
 
-      setWeatherCity(data); // Garante que só dados válidos vão para o estado
+      const shuffled = [...data].sort(() => 0.5 - Math.random());
+      const randomSelection = shuffled.slice(0, 4);
 
+      setWeatherCity(randomSelection);
       setIsLoadingInitial(false);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const capitalizeFirstLetter = (text: string): string => {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   };
 
   useEffect(() => {
@@ -67,7 +108,9 @@ const UserWeather = () => {
                 <div className="name-degrees">
                   <div className="name">
                     <HiMapPin className="pin" />
-                    <p>{weather.name}</p>
+                    <p>
+                      {weather.name}, {weather.sys.country}
+                    </p>
                   </div>
                   <p className="degrees">
                     {Number(weather.main.temp).toFixed(0)}°C
@@ -79,7 +122,7 @@ const UserWeather = () => {
                     alt="condition"
                   />
                   <p className="description">
-                    {weather.weather[0].description}
+                    {capitalizeFirstLetter(weather.weather[0].description)}
                   </p>
                 </div>
               </div>
@@ -92,6 +135,7 @@ const UserWeather = () => {
             <div className="input">
               <input
                 type="text"
+                id="text"
                 placeholder="Inserir local"
                 onChange={(e) => setUserCity(e.target.value)}
               />
@@ -105,17 +149,34 @@ const UserWeather = () => {
           <div className="user-weather">
             <div className="user-city">
               <HiMapPin className="icon-pin" />
-              <p>{weather.name}</p>
+              <p>
+                {weather.name}, {weather.sys.country}
+              </p>
             </div>
-            <h1>{Number(weather.main.temp).toFixed(0)}°C</h1>
             <div className="user-degrees">
+              <h1>{Number(weather.main.temp).toFixed(0)}°C</h1>
+            </div>
+            <div className="user-description">
               <img
                 src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                 alt="condition"
               />
-              <p>{weather.weather[0].description}</p>
+              <p>{capitalizeFirstLetter(weather.weather[0].description)}</p>
+            </div>
+            <div className="humidity-container">
+              <div className="user-humidity">
+                <IoWater className="icon-humidity" />
+                <p>{weather.main.humidity} %</p>
+              </div>
+              <div className="user-wind">
+                <FaWind className="icon-humidity" />
+                <p>{weather.wind.speed.toFixed(1)} Km/h</p>
+              </div>
             </div>
           </div>
+        )}
+        {error && (
+          <p className="error">Cidade, Estado ou País não encontrado...</p>
         )}
         {isLoading && <Loader />}
       </div>
