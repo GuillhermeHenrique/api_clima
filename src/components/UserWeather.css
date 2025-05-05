@@ -134,7 +134,6 @@
   color: #000;
 }
 
-
 .user-degrees h1 {
   width: min-content;
   margin: 0 auto;
@@ -175,4 +174,129 @@
 .error {
   margin-top: 20px;
   padding: 0 40px;
+}
+
+@media (max-width: 425px) {
+  .weather {
+    height: fit-content;
+    width: fit-content;
+    min-height: 380px;
+  }
+
+  .weather-places {
+    max-width: 160px;
+    position: relative;
+  }
+
+  .weather-temperature {
+    width: fit-content;
+    padding: 15px;
+    padding-top: 8px;
+  }
+
+  .name p {
+    font-size: 12px;
+  }
+
+  .icon-description {
+    border: none;
+    position: absolute;
+    margin-left: 55px;
+    margin-top: 30px;
+  }
+
+  .icon-description img {
+    height: 35px;
+  }
+
+  .icon-description p {
+    display: none;
+  }
+
+  .weather-input {
+    max-width: 217px;
+    padding-top: 15px;
+    position: relative;
+  }
+
+  .input input {
+    max-width: 130px;
+    height: 30px;
+    padding-right: 20px;
+  }
+
+  .input button {
+    max-width: 50px;
+    height: 30px;
+    padding: 7px;
+  }
+
+  .user-degrees h1 {
+    font-size: 80px;
+  }
+
+  .humidity-container {
+    gap: 30px;
+  }
+
+  .humidity-container p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 375px) {
+  .weather {
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .weather-places {
+    max-width: 160px;
+  }
+
+  .weather-temperature {
+    flex-direction: column;
+    width: fit-content;
+  }
+
+  .icon-description {
+    display: none;
+  }
+
+  .weather-input {
+    max-width: 160px;
+    padding-top: 15px;
+  }
+
+  .input input {
+    width: 90px;
+    height: 30px;
+    padding-right: 5px;
+  }
+
+  .input button {
+    max-width: 50px;
+    height: 30px;
+    padding: 7px;
+  }
+
+  .user-city p {
+    font-size: 15px;
+  }
+
+  .user-degrees h1 {
+    font-size: 60px;
+  }
+
+  .user-description p {
+    font-size: 15px;
+  }
+
+  .humidity-container {
+    gap: 10px;
+  }
+
+  .humidity-container p {
+    font-size: 13px;
+  }
 }
