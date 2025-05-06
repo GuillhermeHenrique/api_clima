@@ -179,8 +179,9 @@
 @media (max-width: 425px) {
   .weather {
     height: fit-content;
+    min-height: 420px;
     width: fit-content;
-    min-height: 380px;
+    min-width: 346px;
   }
 
   .weather-places {
@@ -236,30 +237,49 @@
   }
 
   .humidity-container {
-    gap: 30px;
+    gap: 20px;
+    padding: 15px 11px;
+    width: 130px;
   }
 
   .humidity-container p {
-    font-size: 15px;
+    font-size: 13px;
   }
 }
 
 @media (max-width: 375px) {
   .weather {
     height: fit-content;
+    min-height: 400px;
     width: fit-content;
+    min-width: 320px;
   }
 
   .weather-places {
     max-width: 160px;
+    position: relative;
   }
 
   .weather-temperature {
-    flex-direction: column;
     width: fit-content;
   }
 
+  .name p {
+    font-size: 12px;
+  }
+
   .icon-description {
+    border: none;
+    position: absolute;
+    margin-left: 55px;
+    margin-top: 30px;
+  }
+
+  .icon-description img {
+    height: 35px;
+  }
+
+  .icon-description p {
     display: none;
   }
 
@@ -289,14 +309,16 @@
   }
 
   .user-description p {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .humidity-container {
-    gap: 10px;
+    gap: 20px;
+    padding: 15px 11px;
+    width: 110px;
   }
 
   .humidity-container p {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
