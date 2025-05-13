@@ -6,7 +6,7 @@ Seja bem-vindo(a), esse é um sistema web moderno e intuitivo que permite **cons
 
 ## 🚀 Funcionalidades
 
-- ✅ Exibição instantânea do clima em diversas cidades do mundo.
+- ✅ Exibição instantânea do clima em diversas localidades do mundo.
 - 🔍 Pesquisa de clima por Cidade, Estado ou País (em qualquer lugar do planeta).
 - 🌡️ Informações detalhadas como:
   - Temperatura atual
