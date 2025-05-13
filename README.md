@@ -22,6 +22,7 @@ Seja bem-vindo(a), esse é um sistema web moderno e intuitivo que permite **cons
 - **React**
 - **TypeScript**
 - **API OpenWeather**
+- **Axios**
 - **Hooks: UseState, UseEffect**
 - **HTML**
 - **CSS**
